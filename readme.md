@@ -16,8 +16,8 @@ device is used. Once the touchend fires your callback is executed without the
 
 ## Download & Include ##
 
-* [Development](https://raw.github.com/nervetatoo/backbone.touch/blob/master/backbone.touch.js)
-* [Production](https://raw.github.com/nervetatoo/backbone.touch/blob/master/dist/backbone.touch.min.js)
+* [Development](https://raw.github.com/nervetattoo/backbone.touch/master/backbone.touch.js)
+* [Production](https://raw.github.com/nervetattoo/backbone.touch/master/dist/backbone.touch.min.js)
 
 Depends on Underscore, Backbone and jQuery.  You can swap out the 
 jQuery dependency completely with a custom configuration.
