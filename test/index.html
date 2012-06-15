@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Backbone.touch Test</title>
+        <script src="vendor/jquery.js"></script>
+        <script src="vendor/underscore.js"></script>
+        <script src="vendor/backbone.js"></script>
+        <script src="../backbone.touch.js"></script>
+
+    </head>
+    <body>
+        <h1>Backbone.touch Test</h1>
+
+        <div id="main">
+            <button type="button">Touch me</button>
+            <p>
+                touchstart: 
+                <span id="touch"></span>
+            </p>
+            <p>
+                click: 
+                <span id="click"></span>
+            </p>
+            <p>
+                diff: 
+                <span id="diff"></span>
+            </p>
+        </div> 
+
+        <script src="view.js"></script>
+        <script type="text/javascript">
+            var view = new View({
+                el : $('#main')
+            }).render();
+        </script>
+    </body>
+</html>
