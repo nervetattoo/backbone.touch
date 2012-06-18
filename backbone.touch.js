@@ -10,17 +10,19 @@
         if (!(object && object[prop])) return null;
         return _.isFunction(object[prop]) ? object[prop]() : object[prop];
     };
-    var isTouch = 'ontouchstart' in this.document,
-        delegateEventSplitter = /^(\S+)\s*(.*)$/;
+    var delegateEventSplitter = /^(\S+)\s*(.*)$/;
 
     // Alias the libraries from the global object
     var Backbone = this.Backbone;
     var _ = this._;
+    var document = this.document;
 
     _.extend(Backbone.View.prototype, {
         _touching : false,
 
         _touchPrevents : true,
+
+        isTouch : 'ontouchstart' in document,
 
         // Drop in replacement for Backbone.View#delegateEvent
         // Enables better touch support
@@ -38,7 +40,7 @@
                 var match = key.match(delegateEventSplitter);
                 var eventName = match[1], selector = match[2];
                 method = _.bind(method, this);
-                if (eventName === 'click' && isTouch) {
+                if (eventName === 'click' && this.isTouch) {
                     if (selector !== '') {
                         this.$el.delegate(selector, 'touchstart' + suffix, this._touchHandler);
                         this.$el.delegate(selector, 'touchmove' + suffix, this._touchHandler);
