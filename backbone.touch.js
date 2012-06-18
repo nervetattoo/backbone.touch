@@ -18,7 +18,9 @@
     var _ = this._;
 
     _.extend(Backbone.View.prototype, {
-        touching : false,
+        _touching : false,
+
+        _touchPrevents : true,
 
         // Drop in replacement for Backbone.View#delegateEvent
         // Enables better touch support
@@ -38,16 +40,16 @@
                 method = _.bind(method, this);
                 if (eventName === 'click' && isTouch) {
                     if (selector !== '') {
-                        this.$el.delegate(selector, 'touchstart' + suffix, this.touchHandler);
-                        this.$el.delegate(selector, 'touchmove' + suffix, this.touchHandler);
+                        this.$el.delegate(selector, 'touchstart' + suffix, this._touchHandler);
+                        this.$el.delegate(selector, 'touchmove' + suffix, this._touchHandler);
                         this.$el.delegate(selector, 'touchend' + suffix,
                             {method:method},
-                            this.touchHandler
+                            this._touchHandler
                         );
                     } else {
-                        this.$el.bind('touchstart' + suffix, this.touchHandler);
-                        this.$el.bind('touchmove' + suffix, this.touchHandler);
-                        this.$el.bind('touchend' + suffix, {method : method}, this.touchHandler);
+                        this.$el.bind('touchstart' + suffix, this._touchHandler);
+                        this.$el.bind('touchmove' + suffix, this._touchHandler);
+                        this.$el.bind('touchend' + suffix, {method : method}, this._touchHandler);
                     }
                 }
                 else {
@@ -61,19 +63,34 @@
             }, this);
         },
 
-        touchHandler : function(e) {
+        // At the first touchstart we register touchevents as ongoing
+        // and as soon as a touch move happens we set touching to false,
+        // thus implying that a fastclick will not happen when
+        // touchend occurs. If no touchmove happened
+        // inbetween touchstart and touchend we trigger the event
+        //
+        // The `_touchPrevents` toggle decides if Backbone.touch
+        // will stop propagation and prevent default
+        // for *button* and *a* elements
+        _touchHandler : function(e) {
             switch (e.type) {
                 case 'touchstart':
-                    this.touching = true;
+                    this._touching = true;
                     break;
                 case 'touchmove':
-                    this.touching = false;
+                    this._touching = false;
                     break;
                 case 'touchend':
-                    if (this.touching) {
-                        this.touching = false;
-                        e.preventDefault();
-                        e.stopPropagation();
+                    if (this._touching) {
+                        this._touching = false;
+                        if (this._touchPrevents) {
+                            var tagName = e.currentTarget.tagName;
+                            if (tagName === 'BUTTON' ||
+                                tagName === 'A') {
+                                e.preventDefault();
+                                e.stopPropagation();
+                            }
+                        }
                         e.data.method(e);
                     }
                     break;
