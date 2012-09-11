@@ -15,14 +15,13 @@
     // Alias the libraries from the global object
     var Backbone = this.Backbone;
     var _ = this._;
-    var document = this.document;
 
     _.extend(Backbone.View.prototype, {
         _touching : false,
 
-        _touchPrevents : true,
+        touchPrevents : true,
 
-        isTouch : 'ontouchstart' in document,
+        isTouch : 'ontouchstart' in this.document,
 
         // Drop in replacement for Backbone.View#delegateEvent
         // Enables better touch support
@@ -40,26 +39,19 @@
                 var match = key.match(delegateEventSplitter);
                 var eventName = match[1], selector = match[2];
                 method = _.bind(method, this);
-                if (eventName === 'click' && this.isTouch) {
-                    if (selector !== '') {
-                        this.$el.delegate(selector, 'touchstart' + suffix, this._touchHandler);
-                        this.$el.delegate(selector, 'touchmove' + suffix, this._touchHandler);
-                        this.$el.delegate(selector, 'touchend' + suffix,
-                            {method:method},
-                            this._touchHandler
-                        );
-                    } else {
-                        this.$el.bind('touchstart' + suffix, this._touchHandler);
-                        this.$el.bind('touchmove' + suffix, this._touchHandler);
-                        this.$el.bind('touchend' + suffix, {method : method}, this._touchHandler);
-                    }
+                if (this.isTouch && eventName === 'click' && selector !== '') {
+                    this.$el.on('touchstart' + suffix, selector, this._touchHandler);
+                    this.$el.on('touchend' + suffix, selector,
+                        {method:method},
+                        this._touchHandler
+                    );
                 }
                 else {
                     eventName += suffix;
                     if (selector === '') {
                         this.$el.bind(eventName, method);
                     } else {
-                        this.$el.delegate(selector, eventName, method);
+                        this.$el.on(eventName, selector, method);
                     }
                 }
             }, this);
@@ -71,21 +63,19 @@
         // touchend occurs. If no touchmove happened
         // inbetween touchstart and touchend we trigger the event
         //
-        // The `_touchPrevents` toggle decides if Backbone.touch
+        // The `touchPrevents` toggle decides if Backbone.touch
         // will stop propagation and prevent default
         // for *button* and *a* elements
         _touchHandler : function(e) {
+            var touch = e.originalEvent.changedTouches[0];
             switch (e.type) {
                 case 'touchstart':
-                    this._touching = true;
-                    break;
-                case 'touchmove':
-                    this._touching = false;
+                    this._touching = [touch.clientX, touch.clientY];
                     break;
                 case 'touchend':
-                    if (this._touching) {
+                    if (touch.clientX === this._touching[0] && touch.clientY === this._touching[1]) {
                         this._touching = false;
-                        if (this._touchPrevents) {
+                        if (this.touchPrevents) {
                             var tagName = e.currentTarget.tagName;
                             if (tagName === 'BUTTON' ||
                                 tagName === 'A') {
