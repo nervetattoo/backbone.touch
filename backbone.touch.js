@@ -67,13 +67,20 @@
         // will stop propagation and prevent default
         // for *button* and *a* elements
         _touchHandler : function(e) {
+            if (!'changedTouches' in e.originalEvent) return;
             var touch = e.originalEvent.changedTouches[0];
+            var x = touch.clientX;
+            var y = touch.clientY;
             switch (e.type) {
                 case 'touchstart':
-                    this._touching = [touch.clientX, touch.clientY];
+                    this._touching = [x, y];
                     break;
                 case 'touchend':
-                    if (touch.clientX === this._touching[0] && touch.clientY === this._touching[1]) {
+                    var oldX = this._touching[0];
+                    var oldY = this._touching[1];
+                    var threshold = 10;
+                    if (x < (oldX + threshold) && x > (oldX - threshold) &&
+                        y < (oldY + threshold) && y > (oldY - threshold)) {
                         this._touching = false;
                         if (this.touchPrevents) {
                             var tagName = e.currentTarget.tagName;
