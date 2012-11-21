@@ -1,8 +1,16 @@
-//     Backbone.touch.js 0.1
+//     Backbone.touch.js 0.2
 
 //     (c) 2012 Raymond Julin, Keyteq AS
 //     Backbone.touch may be freely distributed under the MIT license.
-(function() {
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['underscore', 'backbone'], factory);
+    } else {
+        // Browser globals
+        factory(_, Backbone);
+    }
+}(function (_, Backbone) {
     // The `getValue` and `delegateEventSplitter` is copied from 
     // Backbones source, unfortunately these are not available
     // in any form from Backbone itself
@@ -11,10 +19,6 @@
         return _.isFunction(object[prop]) ? object[prop]() : object[prop];
     };
     var delegateEventSplitter = /^(\S+)\s*(.*)$/;
-
-    // Alias the libraries from the global object
-    var Backbone = this.Backbone;
-    var _ = this._;
 
     _.extend(Backbone.View.prototype, {
         _touching : false,
@@ -67,7 +71,7 @@
         // will stop propagation and prevent default
         // for *button* and *a* elements
         _touchHandler : function(e) {
-            if (!'changedTouches' in e.originalEvent) return;
+            if (!('changedTouches' in e.originalEvent)) return;
             var touch = e.originalEvent.changedTouches[0];
             var x = touch.clientX;
             var y = touch.clientY;
@@ -96,4 +100,5 @@
             }
         }
     });
-}).call(this);
+    return Backbone;
+}));

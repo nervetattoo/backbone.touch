@@ -1,4 +1,4 @@
-Backbone.touch v0.1
+Backbone.touch v 0.2
 =============================
 
 Created by Raymond Julin [@nervetattoo](http://twitter.com/nervetattoo)
@@ -37,6 +37,10 @@ Note that backbone.touch currently overwrites `Backbone.View` to make its usage
 a no-op part from including it.
 
 ## Release notes ##
+
+### 0.2 ###
+
+* Register as an anonymous AMD module
 
 ### 0.1 ###
 
