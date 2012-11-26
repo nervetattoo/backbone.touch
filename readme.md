@@ -1,10 +1,7 @@
-Backbone.touch v 0.2
-=============================
+Backbone.touch
+==============
 
-Created by Raymond Julin [@nervetattoo](http://twitter.com/nervetattoo)
-
-A drop in replacement for Backbone.View that enables fast tap events
-on touch devices.
+Monkey patch Backbone.View to enable fast tap events on touch devices.
 
 ## Usage ##
 
@@ -15,6 +12,12 @@ device is used. Once the touchend fires your callback is executed without the
 300ms delay that the *click* event has.
 
 ## Download & Include ##
+
+### Bower install
+
+`bower install backbone.touch`
+
+### Manual download
 
 * [Development](https://raw.github.com/nervetattoo/backbone.touch/master/backbone.touch.js)
 * [Production](https://raw.github.com/nervetattoo/backbone.touch/master/dist/backbone.touch.min.js)
@@ -45,3 +48,8 @@ a no-op part from including it.
 ### 0.1 ###
 
 * Initial release. Only tested on iPad
+
+## License
+
+[MIT License](http://en.wikipedia.org/wiki/MIT_License)
+(c) [Raymond Julin](http://twitter.com/nervetattoo)
