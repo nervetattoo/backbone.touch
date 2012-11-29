@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Backbone.touch by nervetattoo</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/nervetattoo/backbone.touch">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/nervetattoo/backbone.touch/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/nervetattoo/backbone.touch/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Backbone.touch</h1>
+          <p>Enable faster click events on touch devices for Backbone views</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/nervetattoo">nervetattoo</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>Backbone.touch</h1>
+
+<p>Monkey patch Backbone.View to enable fast tap events on touch devices.</p>
+
+<h2>Usage</h2>
+
+<p>Backbone.touch is made to work with your existing views.
+It replaces the <code>delegateEvents</code> method and replaces any <em>click</em> event
+with the three events <em>touchstart</em>, <em>touchmove</em> and <em>touchend</em> when a touch
+device is used. Once the touchend fires your callback is executed without the
+300ms delay that the <em>click</em> event has.</p>
+
+<h2>Download &amp; Include</h2>
+
+<h3>Bower install</h3>
+
+<p><code>bower install backbone.touch</code></p>
+
+<h3>Manual download</h3>
+
+<ul>
+<li><a href="https://raw.github.com/nervetattoo/backbone.touch/master/backbone.touch.js">Development</a></li>
+<li><a href="https://raw.github.com/nervetattoo/backbone.touch/master/dist/backbone.touch.min.js">Production</a></li>
+</ul><p>Depends on Underscore, Backbone and jQuery.  You can swap out the 
+jQuery dependency completely with a custom configuration.</p>
+
+<p>Include in your application <em>after</em> jQuery, Underscore, and Backbone have been
+included.</p>
+
+<div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/js/jquery.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/js/underscore.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/js/backbone.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/js/backbone.touch.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
+
+<p>Note that backbone.touch currently overwrites <code>Backbone.View</code> to make its usage
+a no-op part from including it.</p>
+
+<h2>Release notes</h2>
+
+<h3>0.2</h3>
+
+<ul>
+<li>Register as an anonymous AMD module</li>
+</ul><h3>0.1</h3>
+
+<ul>
+<li>Initial release. Only tested on iPad</li>
+</ul><h2>License</h2>
+
+<p><a href="http://en.wikipedia.org/wiki/MIT_License">MIT License</a>
+(c) <a href="http://twitter.com/nervetattoo">Raymond Julin</a></p>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-7868401-4");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
