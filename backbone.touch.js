@@ -42,12 +42,13 @@
                 if (!method) throw new Error('Method "' + events[key] + '" does not exist');
                 var match = key.match(delegateEventSplitter);
                 var eventName = match[1], selector = match[2];
+                var boundHandler = _.bind(this._touchHandler,this);
                 method = _.bind(method, this);
                 if (this.isTouch && eventName === 'click' && selector !== '') {
-                    this.$el.on('touchstart' + suffix, selector, this._touchHandler);
+                    this.$el.on('touchstart' + suffix, selector, boundHandler);
                     this.$el.on('touchend' + suffix, selector,
                         {method:method},
-                        this._touchHandler
+                        boundHandler
                     );
                 }
                 else {
