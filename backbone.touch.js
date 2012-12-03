@@ -3,6 +3,9 @@
 //     (c) 2012 Raymond Julin, Keyteq AS
 //     Backbone.touch may be freely distributed under the MIT license.
 (function (factory) {
+
+    "use strict";
+
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define(['underscore', 'backbone'], factory);
@@ -11,6 +14,9 @@
         factory(_, Backbone);
     }
 }(function (_, Backbone) {
+
+    "use strict";
+
     // The `getValue` and `delegateEventSplitter` is copied from 
     // Backbones source, unfortunately these are not available
     // in any form from Backbone itself
