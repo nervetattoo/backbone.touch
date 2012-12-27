@@ -31,7 +31,7 @@
 
         touchPrevents : true,
 
-        isTouch : 'ontouchstart' in this.document,
+        isTouch : 'ontouchstart' in document,
 
         // Drop in replacement for Backbone.View#delegateEvent
         // Enables better touch support
