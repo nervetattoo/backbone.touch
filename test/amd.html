@@ -2,26 +2,21 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>Backbone.touch Demo</title>
+        <title>Backbone.touch AMD loaded</title>
         <link href="//netdna.bootstrapcdn.com/bootswatch/2.1.1/slate/bootstrap.min.css" rel="stylesheet">
-        <script src="vendor/jquery.js"></script>
-        <script src="vendor/underscore.js"></script>
-        <script src="vendor/backbone.js"></script>
-        <script src="../backbone.touch.js"></script>
-
     </head>
     <body>
         <div class="navbar">
             <div class="navbar-inner">
                 <a class="brand" href="http://nervetattoo.github.com/backbone.touch/">Backbone.touch</a>
                 <ul class="nav">
-                    <li class="active"><a href="index.html">Demo</a></li>
-                    <li><a href="amd.html">AMD Demo</a></li>
+                    <li><a href="index.html">Demo</a></li>
+                    <li class="active"><a href="amd.html">AMD Demo</a></li>
                 </ul>
             </div>
         </div>
         <div class="container-fluid">
-            <h1>Backbone.touch demo</h1>
+            <h1>Backbone.touch AMD loaded</h1>
 
             <p>Tap the buttons to measure the difference between the fast-click and a native touchstart</p>
             <div id="main">
@@ -34,11 +29,6 @@
             </div> 
         </div>
 
-        <script src="view.js"></script>
-        <script type="text/javascript">
-            var view = new View({
-                el : $('#main')
-            });
-        </script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.1/require.min.js" data-main="main"></script>
     </body>
 </html>
