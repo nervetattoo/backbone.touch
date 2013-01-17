@@ -50,7 +50,7 @@
                 var eventName = match[1], selector = match[2];
                 var boundHandler = _.bind(this._touchHandler,this);
                 method = _.bind(method, this);
-                if (this.isTouch && eventName === 'click' && selector !== '') {
+                if (this.isTouch && eventName === 'click') {
                     this.$el.on('touchstart' + suffix, selector, boundHandler);
                     this.$el.on('touchend' + suffix, selector,
                         {method:method},
