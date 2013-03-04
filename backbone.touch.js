@@ -31,7 +31,7 @@
 
         touchPrevents : true,
 
-        isTouch : 'ontouchstart' in document,
+        isTouch : 'ontouchstart' in document && !('callPhantom' in window),
 
         // Drop in replacement for Backbone.View#delegateEvent
         // Enables better touch support
