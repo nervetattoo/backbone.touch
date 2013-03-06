@@ -31,7 +31,7 @@
 
         touchPrevents : true,
 
-        isTouch : 'ontouchstart' in this.document,
+        isTouch : 'ontouchstart' in document && !('callPhantom' in window),
 
         // Drop in replacement for Backbone.View#delegateEvent
         // Enables better touch support
@@ -50,7 +50,7 @@
                 var eventName = match[1], selector = match[2];
                 var boundHandler = _.bind(this._touchHandler,this);
                 method = _.bind(method, this);
-                if (this.isTouch && eventName === 'click' && selector !== '') {
+                if (this.isTouch && eventName === 'click') {
                     this.$el.on('touchstart' + suffix, selector, boundHandler);
                     this.$el.on('touchend' + suffix, selector,
                         {method:method},
