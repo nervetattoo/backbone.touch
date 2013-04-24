@@ -31,6 +31,8 @@
 
         touchPrevents : true,
 
+        touchThreshold : 10,
+
         isTouch : 'ontouchstart' in document && !('callPhantom' in window),
 
         // Drop in replacement for Backbone.View#delegateEvent
@@ -89,7 +91,7 @@
                 case 'touchend':
                     var oldX = this._touching[0];
                     var oldY = this._touching[1];
-                    var threshold = 10;
+                    var threshold = this.touchThreshold;
                     if (x < (oldX + threshold) && x > (oldX - threshold) &&
                         y < (oldY + threshold) && y > (oldY - threshold)) {
                         this._touching = false;
