@@ -50,7 +50,7 @@
                 var eventName = match[1], selector = match[2];
                 var boundHandler = _.bind(this._touchHandler,this);
                 method = _.bind(method, this);
-                if (this.isTouch && eventName === 'click') {
+                if (this._useTouchHandlers(eventName, selector)) {
                     this.$el.on('touchstart' + suffix, selector, boundHandler);
                     this.$el.on('touchend' + suffix, selector,
                         {method:method},
@@ -66,6 +66,13 @@
                     }
                 }
             }, this);
+        },
+
+        // Detect if touch handlers should be used over listening for click
+        // Allows custom detection implementations
+        _useTouchHandlers : function(eventName, selector)
+        {
+            return this.isTouch && eventName === 'click';
         },
 
         // At the first touchstart we register touchevents as ongoing
