@@ -1,5 +1,3 @@
-//     Backbone.touch.js 0.2
-
 //     (c) 2012 Raymond Julin, Keyteq AS
 //     Backbone.touch may be freely distributed under the MIT license.
 (function (factory) {
