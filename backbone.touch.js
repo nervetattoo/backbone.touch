@@ -1,5 +1,3 @@
-//     Backbone.touch.js 0.2
-
 //     (c) 2012 Raymond Julin, Keyteq AS
 //     Backbone.touch may be freely distributed under the MIT license.
 (function (factory) {
@@ -30,6 +28,8 @@
         _touching : false,
 
         touchPrevents : true,
+
+        touchThreshold : 10,
 
         isTouch : 'ontouchstart' in document && !('callPhantom' in window),
 
@@ -96,7 +96,7 @@
                 case 'touchend':
                     var oldX = this._touching[0];
                     var oldY = this._touching[1];
-                    var threshold = 10;
+                    var threshold = this.touchThreshold;
                     if (x < (oldX + threshold) && x > (oldX - threshold) &&
                         y < (oldY + threshold) && y > (oldY - threshold)) {
                         this._touching = false;
