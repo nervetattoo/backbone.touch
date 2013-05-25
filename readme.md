@@ -41,6 +41,11 @@ a no-op part from including it.
 
 ## Release notes ##
 
+### 0.3 ###
+
+* Possibility to override the threshold
+* Grunt v4.0
+
 ### 0.2 ###
 
 * Register as an anonymous AMD module
