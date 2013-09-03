@@ -1,5 +1,3 @@
-//     Backbone.touch.js 0.2
-
 //     (c) 2012 Raymond Julin, Keyteq AS
 //     Backbone.touch may be freely distributed under the MIT license.
 (function (factory) {
@@ -31,6 +29,8 @@
 
         touchPrevents : true,
 
+        touchThreshold : 10,
+
         isTouch : 'ontouchstart' in document && !('callPhantom' in window),
 
         // Drop in replacement for Backbone.View#delegateEvent
@@ -50,7 +50,7 @@
                 var eventName = match[1], selector = match[2];
                 var boundHandler = _.bind(this._touchHandler,this);
                 method = _.bind(method, this);
-                if (this.isTouch && eventName === 'click') {
+                if (this._useTouchHandlers(eventName, selector)) {
                     this.$el.on('touchstart' + suffix, selector, boundHandler);
                     this.$el.on('touchend' + suffix, selector,
                         {method:method},
@@ -66,6 +66,13 @@
                     }
                 }
             }, this);
+        },
+
+        // Detect if touch handlers should be used over listening for click
+        // Allows custom detection implementations
+        _useTouchHandlers : function(eventName, selector)
+        {
+            return this.isTouch && eventName === 'click';
         },
 
         // At the first touchstart we register touchevents as ongoing
@@ -89,7 +96,7 @@
                 case 'touchend':
                     var oldX = this._touching[0];
                     var oldY = this._touching[1];
-                    var threshold = 10;
+                    var threshold = this.touchThreshold;
                     if (x < (oldX + threshold) && x > (oldX - threshold) &&
                         y < (oldY + threshold) && y > (oldY - threshold)) {
                         this._touching = false;
