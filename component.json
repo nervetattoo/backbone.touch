@@ -1,0 +1,5 @@
+{
+    "name": "backbone.input.touch",
+    "version": "0.2.1",
+    "main": "./backbone.input.touch.js"
+}
