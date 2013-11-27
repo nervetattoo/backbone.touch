@@ -36,7 +36,7 @@
 
         touchThreshold : 10,
 
-        isTouch : 'ontouchstart' in document && typeof callPhantom === 'undefined',
+        isTouch : document && typeof document.ontouchstart !== 'undefined' && typeof callPhantom === 'undefined',
 
         // Drop in replacement for Backbone.View#delegateEvent
         // Enables better touch support
