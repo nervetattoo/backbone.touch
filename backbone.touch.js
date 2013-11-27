@@ -1,17 +1,22 @@
 //     (c) 2012 Raymond Julin, Keyteq AS
 //     Backbone.touch may be freely distributed under the MIT license.
-(function (factory) {
+(function (window, factory) {
 
     "use strict";
 
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
-        define(['underscore', 'backbone'], factory);
+        define(['underscore', 'backbone'], function(){
+            return factory.apply(window, arguments);
+        });
+    } else if (typeof module === 'object' && module.exports) {
+        // NodeJS.
+        module.exports = factory.call(window, require('underscore'), require('backbone'));
     } else {
         // Browser globals
-        factory(_, Backbone);
+        factory.call(window, window._, window.Backbone);
     }
-}(function (_, Backbone) {
+}(typeof global === 'object' ? global : this, function (_, Backbone) {
 
     "use strict";
 
@@ -31,7 +36,7 @@
 
         touchThreshold : 10,
 
-        isTouch : 'ontouchstart' in document && !('callPhantom' in window),
+        isTouch : 'ontouchstart' in document && typeof callPhantom === 'undefined',
 
         // Drop in replacement for Backbone.View#delegateEvent
         // Enables better touch support
