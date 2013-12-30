@@ -70,16 +70,16 @@
 			// variables
 			var self = this;
 			// default numbers could be the dimensions of the window
-			var pos = { top: 10000, left: 10000 };
+			var pos = { top: 0, left: 0 };
 			var el = null;
 			// check for the existance of the $ namespace
 			$(this.el).find( selector ).each(function(){
 				var offset = $(this).offset();
 				// check against previous
-				if( coords.top - offset.top >= 0 && offset.top <= pos.top  ){
+				if( coords.top - offset.top >= 0 && offset.top >= pos.top  ){
 					// this is the closest element (so far)
 					pos = offset;
-					var el = this;
+					el = this;
 					return el;
 				}
 			});
