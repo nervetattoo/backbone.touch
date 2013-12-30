@@ -50,6 +50,7 @@
 			var monitor = _.inArray("touch", this.options.monitor);
 			if( !monitor ) return;
 			//if (e.stopPropagation) e.stopPropagation();
+			if (e.preventDefault) e.preventDefault();
 			if( _.inDebug() ) console.log("touchmove", e);
 			this.trigger("touchmove", e);
 			if(this.touchmove) this.touchmove( e );
