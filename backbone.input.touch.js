@@ -74,13 +74,13 @@
 			$(this.el).find( selector ).each(function(){
 				var offset = $(this).offset();
 				// check against previous
-				if( coords.top - pos.top >= coords.top - offset.top  ){
-					// keep looking
-					pos = offset;
-				} else {
+				if( offset.top - coords.top >= 0 && offset.top <= pos.top  ){
 					// this is the closest element
 					var el = this;
 					return el;
+				} else {
+					// keep looking
+					pos = offset;
 				}
 			});
 
