@@ -69,18 +69,14 @@
 		_touch_findEl: function( selector, coords ){
 			var self = this;
 			// check for the existance of the $ namespace
-			var pos = {};
+			var pos = { top: 0, left: 0 };
 			var el = null;
 			$(this.el).find( selector ).each(function(){
-				var top = $(this).scrollTop();
-				var left = $(this).scrollLeft();
+				var offset = $(this).offset();
 				// check against previous
-				if( coords.top - pos.top > coords.top - top  ){
+				if( coords.top - pos.top >= coords.top - offset.top  ){
 					// keep looking
-					pos = {
-						top: top,
-						left: left
-					}
+					pos = offset;
 				} else {
 					// this is the closest element
 					var el = this;
