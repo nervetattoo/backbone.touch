@@ -27,8 +27,8 @@
     _.extend(Backbone.View.prototype, {
 
 		events: _.extend({}, View.prototype.events, {
-			"touchstart": "_touchstart"
-			"touchmove": "_touchmove"
+			"touchstart": "_touchstart",
+			"touchmove": "_touchmove",
 			"touchend": "_touchend"
 		}),
 
