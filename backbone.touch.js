@@ -67,20 +67,20 @@
 
 		// Helpers
 		_touch_findEl: function( selector, coords ){
+			// variables
 			var self = this;
-			// check for the existance of the $ namespace
-			var pos = { top: 0, left: 0 };
+			// default numbers could be the dimensions of the window
+			var pos = { top: 10000, left: 10000 };
 			var el = null;
+			// check for the existance of the $ namespace
 			$(this.el).find( selector ).each(function(){
 				var offset = $(this).offset();
 				// check against previous
-				if( offset.top - coords.top >= 0 && offset.top <= pos.top  ){
-					// this is the closest element
+				if( coords.top - offset.top >= 0 && offset.top <= pos.top  ){
+					// this is the closest element (so far)
+					pos = offset;
 					var el = this;
 					return el;
-				} else {
-					// keep looking
-					pos = offset;
 				}
 			});
 
