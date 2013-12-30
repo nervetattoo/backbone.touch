@@ -65,6 +65,32 @@
 			if(this.touchend) this.touchend( e );
 		},
 
+		// Helpers
+		_touch_findEl: function( coords, selector ){
+			var self = this;
+			// check for the existance of the $ namespace
+			var pos = {};
+			var el = null;
+			$(this.el).find( selector ).each(function( this ){
+				var top = $(this).scrollTop();
+				var left = $(this).scrollLeft();
+				// check against previous
+				if( coords.top - pos.top > coords.top - top  ){
+					// keep looking
+					pos = {
+						top: top,
+						left: left
+					}
+				} else {
+					// this is the closest element
+					var el = this;
+					return el;
+				}
+			});
+
+			return el;
+		},
+
         _touching : false,
 
         touchPrevents : true,
