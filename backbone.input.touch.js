@@ -15,7 +15,7 @@
 
     "use strict";
 
-    // The `getValue` and `delegateEventSplitter` is copied from 
+    // The `getValue` and `delegateEventSplitter` is copied from
     // Backbones source, unfortunately these are not available
     // in any form from Backbone itself
     var getValue = function(object, prop) {
@@ -25,6 +25,43 @@
     var delegateEventSplitter = /^(\S+)\s*(.*)$/;
 
     _.extend(Backbone.View.prototype, {
+
+		events: _.extend({}, View.prototype.events, {
+			"touchstart": "_touchstart"
+			"touchmove": "_touchmove"
+			"touchend": "_touchend"
+		}),
+
+		_touchstart: function( e ){
+			// prerequisite
+			var monitor = _.inArray("touch", this.options.monitor);
+			if( !monitor ) return;
+			//if (e.stopPropagation) e.stopPropagation();
+			if( _.inDebug() ) console.log("touchstart", e);
+			this.trigger("touchstart", e);
+			if(this.touchstart) this.touchstart( e );
+		},
+
+		_touchmove: function( e ){
+			// prerequisite
+			var monitor = _.inArray("touch", this.options.monitor);
+			if( !monitor ) return;
+			//if (e.stopPropagation) e.stopPropagation();
+			if( _.inDebug() ) console.log("touchmove", e);
+			this.trigger("touchmove", e);
+			if(this.touchmove) this.touchmove( e );
+		},
+
+		_touchend: function( e ){
+			// prerequisite
+			var monitor = _.inArray("touch", this.options.monitor);
+			if( !monitor ) return;
+			//if (e.stopPropagation) e.stopPropagation();
+			if( _.inDebug() ) console.log("touchend", e);
+			this.trigger("touchend", e);
+			if(this.touchend) this.touchend( e );
+		},
+
         _touching : false,
 
         touchPrevents : true,
@@ -35,7 +72,7 @@
 
         // Drop in replacement for Backbone.View#delegateEvent
         // Enables better touch support
-        // 
+        //
         // If the users device is touch enabled it replace any `click`
         // event with listening for touch(start|move|end) in order to
         // quickly trigger touch taps
@@ -114,5 +151,18 @@
             }
         }
     });
+
+	// helpers
+	_.mixin({
+		inArray: function(value, array){
+			return array.indexOf(value) > -1;
+		},
+		// - Check if in debug mode (requires the existence of a global DEBUG var)
+		// Usage: _.inDebug()
+		inDebug : function() {
+			return ( typeof DEBUG != "undefined" && DEBUG );
+		}
+	});
+
     return Backbone;
 }));
