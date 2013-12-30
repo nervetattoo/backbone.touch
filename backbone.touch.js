@@ -66,12 +66,12 @@
 		},
 
 		// Helpers
-		_touch_findEl: function( coords, selector ){
+		_touch_findEl: function( selector, coords ){
 			var self = this;
 			// check for the existance of the $ namespace
 			var pos = {};
 			var el = null;
-			$(this.el).find( selector ).each(function( this ){
+			$(this.el).find( selector ).each(function(){
 				var top = $(this).scrollTop();
 				var left = $(this).scrollLeft();
 				// check against previous
