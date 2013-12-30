@@ -24,7 +24,10 @@
     };
     var delegateEventSplitter = /^(\S+)\s*(.*)$/;
 
-    _.extend(Backbone.View.prototype, {
+    //var View = ( isAPP ) ? APP.View : Backbone.View;
+	var View = Backbone.View;
+
+	_.extend(View.prototype, {
 
 		events: _.extend({}, View.prototype.events, {
 			"touchstart": "_touchstart",
