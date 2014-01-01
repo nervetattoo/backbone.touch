@@ -1,7 +1,7 @@
 {
-    "name": "backbone.touch",
-    "version": "0.3.0",
-    "main": "./backbone.touch.js",
+    "name": "backbone.input.touch",
+    "version": "0.4.0",
+    "main": "./backbone.input.touch.js",
     "ignore": ["test/*"],
     "dependencies": {
         "backbone": "1.0.0"
