@@ -27,13 +27,22 @@
     //var View = ( isAPP ) ? APP.View : Backbone.View;
 	var View = Backbone.View;
 
-	_.extend(View.prototype, {
+	var Touch = View.extend({
+
+		options: _.extend({}, View.prototype.options, {
+			fastclick: false
+		}),
 
 		events: _.extend({}, View.prototype.events, {
 			"touchstart": "_touchstart",
 			"touchmove": "_touchmove",
 			"touchend": "_touchend"
 		}),
+
+		initialize: function(){
+			if( this.options.fastclick ) this.fastClick( this.events );
+			return View.prototype.initialize.apply(this, arguments);
+		},
 
 		_touchstart: function( e ){
 			// prerequisite
@@ -96,38 +105,30 @@
 
         isTouch : 'ontouchstart' in document && !('callPhantom' in window),
 
-        // Drop in replacement for Backbone.View#delegateEvent
         // Enables better touch support
         //
         // If the users device is touch enabled it replace any `click`
         // event with listening for touch(start|move|end) in order to
         // quickly trigger touch taps
-        delegateEvents: function(events) {
-            if (!(events || (events = getValue(this, 'events')))) return;
-            this.undelegateEvents();
+        fastClick: function(events) {
+			if (!(events || (events = getValue(this, 'events')))) return;
+            //this.undelegateEvents();
+            var self = this;
             var suffix = '.delegateEvents' + this.cid;
-            _(events).each(function(method, key) {
+			_(events).each(function(method, key) {
                 if (!_.isFunction(method)) method = this[events[key]];
                 if (!method) throw new Error('Method "' + events[key] + '" does not exist');
                 var match = key.match(delegateEventSplitter);
                 var eventName = match[1], selector = match[2];
-                var boundHandler = _.bind(this._touchHandler,this);
-                method = _.bind(method, this);
+                var boundHandler = _.bind(self._touchHandler,self);
+                method = _.bind(method, self);
                 if (this._useTouchHandlers(eventName, selector)) {
-                    this.$el.on('touchstart' + suffix, selector, boundHandler);
-                    this.$el.on('touchend' + suffix, selector,
-                        {method:method},
-                        boundHandler
-                    );
+					// remove click event
+					this.$el.off('click', selector);
+					this.$el.on('touchstart', selector, boundHandler);
+                    this.$el.on('touchend', selector, { method:method }, boundHandler );
                 }
-                else {
-                    eventName += suffix;
-                    if (selector === '') {
-                        this.$el.bind(eventName, method);
-                    } else {
-                        this.$el.on(eventName, selector, method);
-                    }
-                }
+
             }, this);
         },
 
@@ -162,7 +163,7 @@
                     var threshold = this.touchThreshold;
                     if (x < (oldX + threshold) && x > (oldX - threshold) &&
                         y < (oldY + threshold) && y > (oldY - threshold)) {
-                        this._touching = false;
+						this._touching = false;
                         if (this.touchPrevents) {
                             var tagName = e.currentTarget.tagName;
                             if (tagName === 'BUTTON' ||
@@ -189,6 +190,8 @@
 			return ( typeof DEBUG != "undefined" && DEBUG );
 		}
 	});
+
+	Backbone.View = Touch;
 
     return Backbone;
 }));
