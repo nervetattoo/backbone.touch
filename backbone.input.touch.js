@@ -103,6 +103,8 @@
 
         touchThreshold : 10,
 
+        // Detect if touch handlers should be used over listening for click
+        // Allows custom detection implementations
         isTouch : 'ontouchstart' in document && !('callPhantom' in window),
 
         // Enables better touch support
@@ -111,6 +113,8 @@
         // event with listening for touch(start|move|end) in order to
         // quickly trigger touch taps
         fastClick: function(events) {
+			// prerequisites
+			if( !this.isTouch ) return;
 			if (!(events || (events = getValue(this, 'events')))) return;
             //this.undelegateEvents();
             var self = this;
@@ -122,21 +126,15 @@
                 var eventName = match[1], selector = match[2];
                 var boundHandler = _.bind(self._touchHandler,self);
                 method = _.bind(method, self);
-                if (this._useTouchHandlers(eventName, selector)) {
+                if ( eventName === 'click' ) {
 					// remove click event
 					this.$el.off('click', selector);
+					// add touch event in its place
 					this.$el.on('touchstart', selector, boundHandler);
                     this.$el.on('touchend', selector, { method:method }, boundHandler );
                 }
 
             }, this);
-        },
-
-        // Detect if touch handlers should be used over listening for click
-        // Allows custom detection implementations
-        _useTouchHandlers : function(eventName, selector)
-        {
-            return this.isTouch && eventName === 'click';
         },
 
         // At the first touchstart we register touchevents as ongoing
