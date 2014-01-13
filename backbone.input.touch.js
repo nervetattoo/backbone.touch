@@ -30,7 +30,9 @@
 	var Touch = View.extend({
 
 		options: _.extend({}, View.prototype.options, {
-			fastclick: true
+			touch: {
+				fastclick: true
+			}
 		}),
 
 		events: _.extend({}, View.prototype.events, {
@@ -40,7 +42,7 @@
 		}),
 
 		initialize: function(){
-			if( this.options.fastclick ) this.fastClick( this.events );
+			if( this.options.touch.fastclick ) this.fastClick( this.events );
 			return View.prototype.initialize.apply(this, arguments);
 		},
 
