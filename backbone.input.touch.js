@@ -14,6 +14,8 @@
 }(function (_, Backbone) {
 
     "use strict";
+	// better way to define global scope?
+	var window = window || {};
 
     // The `getValue` and `delegateEventSplitter` is copied from
     // Backbones source, unfortunately these are not available
@@ -31,7 +33,7 @@
 
 		options: _.extend({}, View.prototype.options, {
 			touch: {
-				fastclick: true
+				fastclick: (typeof window.FastClick == "undefined") ? true : false
 			}
 		}),
 
