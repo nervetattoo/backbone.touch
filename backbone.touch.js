@@ -44,6 +44,8 @@
 		}),
 
 		initialize: function(){
+			// backwards compatibility (with versions that reset the options...)
+			this.options.touch = this.options.touch || {};
 			if( this.options.touch.fastclick ) this.fastClick( this.events );
 			return View.prototype.initialize.apply(this, arguments);
 		},
