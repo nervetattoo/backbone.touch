@@ -43,7 +43,14 @@ module.exports = function(grunt) {
         undef: true,
         eqnull: true,
         node: true,
-        globals: {_:true, Backbone:true, define:true, document:true, window:true}
+        globals: {
+            _:true,
+            Backbone:true,
+            define:true,
+            document:true,
+            window:true,
+            DEBUG: true
+        }
       },
       files: ["Gruntfile.js", "backbone.touch.js"]
     }

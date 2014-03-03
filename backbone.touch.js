@@ -26,14 +26,13 @@
     };
     var delegateEventSplitter = /^(\S+)\s*(.*)$/;
 
-    //var View = ( isAPP ) ? APP.View : Backbone.View;
 	var View = Backbone.View;
 
 	var Touch = View.extend({
 
 		options: _.extend({}, View.prototype.options, {
 			touch: {
-				fastclick: (typeof window.FastClick == "undefined") ? true : false
+				fastclick: (typeof window.FastClick === "undefined")
 			}
 		}),
 
@@ -89,14 +88,14 @@
 			var pos = { top: 0, left: 0 };
 			var el = null;
 			// check for the existance of the $ namespace
-			$(this.el).find( selector ).each(function(){
+            var $ = this.$;
+			this.$(selector).each(function(){
 				var offset = $(this).offset();
 				// check against previous
-				if( coords.top - offset.top >= 0 && offset.top >= pos.top  ){
+				if (coords.top - offset.top >= 0 && offset.top >= pos.top ) {
 					// this is the closest element (so far)
 					pos = offset;
 					el = this;
-					return el;
 				}
 			});
 
@@ -191,7 +190,7 @@
 		// - Check if in debug mode (requires the existence of a global DEBUG var)
 		// Usage: _.inDebug()
 		inDebug : function() {
-			return ( typeof DEBUG != "undefined" && DEBUG );
+			return (typeof DEBUG !== "undefined" && DEBUG);
 		}
 	});
 
