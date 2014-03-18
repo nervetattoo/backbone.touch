@@ -41,6 +41,10 @@ a no-op part from including it.
 
 ## Release notes ##
 
+### 0.4 ###
+
+* NodeJS + Browserify environment support
+
 ### 0.3 ###
 
 * Possibility to override the threshold
