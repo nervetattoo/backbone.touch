@@ -2,7 +2,7 @@ module.exports = function(grunt) {
   "use strict";
 
   // load all grunt tasks
-  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+  require('load-grunt-tasks')(grunt);
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -28,6 +28,16 @@ module.exports = function(grunt) {
     watch: {
       files: "<config:jshint.files>",
       tasks: "jshint:dist"
+    },
+
+    connect: {
+      test: {
+        options: {
+          keepalive: true,
+          root: 'test/',
+          port: 9090
+        }
+      }
     },
 
     jshint: {
