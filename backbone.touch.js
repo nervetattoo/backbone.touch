@@ -90,8 +90,9 @@
         // will stop propagation and prevent default
         // for *button* and *a* elements
         _touchHandler : function(e) {
-            if (!('changedTouches' in e.originalEvent)) return;
-            var touch = e.originalEvent.changedTouches[0];
+            var oe = e.originalEvent || e;
+            if (!('changedTouches' in oe)) return;
+            var touch = oe.changedTouches[0];
             var x = touch.clientX;
             var y = touch.clientY;
             switch (e.type) {
