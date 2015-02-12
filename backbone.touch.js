@@ -61,6 +61,8 @@
                         {method:method},
                         boundHandler
                     );
+                    // add the original event listener for devices with touch + mouse
+                    this.$el.on(eventName, selector, method);
                 }
                 else {
                     eventName += suffix;
@@ -88,7 +90,6 @@
         //
         // The `touchPrevents` toggle decides if Backbone.touch
         // will stop propagation and prevent default
-        // for *button* and *a* elements
         _touchHandler : function(e) {
             var oe = e.originalEvent || e;
             if (!('changedTouches' in oe)) return;
@@ -107,12 +108,8 @@
                         y < (oldY + threshold) && y > (oldY - threshold)) {
                         this._touching = false;
                         if (this.touchPrevents) {
-                            var tagName = e.currentTarget.tagName;
-                            if (tagName === 'BUTTON' ||
-                                tagName === 'A') {
-                                e.preventDefault();
-                                e.stopPropagation();
-                            }
+                            e.preventDefault();
+                            e.stopPropagation();
                         }
                         e.data.method(e);
                     }
