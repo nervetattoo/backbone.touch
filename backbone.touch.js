@@ -48,7 +48,7 @@
             if (!(events || (events = getValue(this, 'events')))) return;
             this.undelegateEvents();
             var suffix = '.delegateEvents' + this.cid;
-            _(events).each(function(method, key) {
+            _.each(events, function(method, key) {
                 if (!_.isFunction(method)) method = this[events[key]];
                 if (!method) throw new Error('Method "' + events[key] + '" does not exist');
                 var match = key.match(delegateEventSplitter);
