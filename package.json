@@ -1,7 +1,7 @@
 {
   "name": "backbone.touch",
   "description": "Enable faster click events on touch devices for Backbone views.",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "homepage": "https://github.com/nervetattoo/backbone.touch",
   "main": "backbone.touch.js",
   "author": {
