@@ -73,6 +73,24 @@
                     }
                 }
             }, this);
+
+            // If we think we are touch listen out for a mousemove event
+            // which could indicate we are a device with both touch and
+            // mouse, eg Chromebook Pixel
+            if (this.isTouch) {
+                var self = this;
+                var mouseMove = function(event) {
+                    self.isTouch = false;
+                    self.delegateEvents(events);
+                    document.removeEventListener('mousemove', mouseMove);
+                };
+                var touchStart = function(event) {
+                    document.removeEventListener('mousemove', mouseMove);
+                    document.removeEventListener('touchstart', touchStart);
+                };
+                document.addEventListener('touchstart', touchStart);
+                document.addEventListener('mousemove', mouseMove);
+            }
         },
 
         // Detect if touch handlers should be used over listening for click
